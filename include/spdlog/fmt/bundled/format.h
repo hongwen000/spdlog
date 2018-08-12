@@ -4147,15 +4147,15 @@ private:
     // a sign and a null character.
     enum
     {
-        BUFFER_SIZE = std::numeric_limits<ULongLong>::digits10 + 3
+        FORMAT_INT_BUFFER_SIZE = std::numeric_limits<ULongLong>::digits10 + 3
     };
-    mutable char buffer_[BUFFER_SIZE];
+    mutable char buffer_[FORMAT_INT_BUFFER_SIZE];
     char *str_;
 
     // Formats value in reverse and returns the number of digits.
     char *format_decimal(ULongLong value)
     {
-        char *buffer_end = buffer_ + BUFFER_SIZE - 1;
+        char *buffer_end = buffer_ + FORMAT_INT_BUFFER_SIZE - 1;
         while (value >= 100)
         {
             // Integer division is slow so do it for a group of two digits instead
@@ -4217,7 +4217,7 @@ public:
     /** Returns the number of characters written to the output buffer. */
     std::size_t size() const
     {
-        return internal::to_unsigned(buffer_ - str_ + BUFFER_SIZE - 1);
+        return internal::to_unsigned(buffer_ - str_ + FORMAT_INT_BUFFER_SIZE - 1);
     }
 
     /**
@@ -4235,7 +4235,7 @@ public:
      */
     const char *c_str() const
     {
-        buffer_[BUFFER_SIZE - 1] = '\0';
+        buffer_[FORMAT_INT_BUFFER_SIZE - 1] = '\0';
         return str_;
     }
 
